@@ -23,18 +23,18 @@ namespace Infraestrutura.Repositorio
 
         public async Task DeleteCidade(int cidadeId)
         {
-            Cidade cidade = await _conexaoContexto.Cidades.FindAsync(cidadeId);
-            _conexaoContexto.Cidades.Remove(cidade);
+            Cidade cidade = await _conexaoContexto.Cidade.FindAsync(cidadeId);
+            _conexaoContexto.Cidade.Remove(cidade);
         }
 
         public List<Cidade> ObterListaDeCidadesComEstados()
         {
-            return _conexaoContexto.Cidades.Include(c => c.Estado).AsNoTracking().ToList(); ;
+            return _conexaoContexto.Cidade.Include(c => c.Estado).AsNoTracking().ToList(); ;
         }
 
         public Cidade ObterCidade(string uf, string cidade)
         {
-            var retorno = _conexaoContexto.Cidades.Include(c => c.Estado)
+            var retorno = _conexaoContexto.Cidade.Include(c => c.Estado)
                 .Where(c => c.Estado.UF.Equals(uf.ToUpper()) && c.Nome.ToUpper().Equals(cidade.ToUpper()))
                 .FirstOrDefault();
             return retorno;
@@ -42,7 +42,7 @@ namespace Infraestrutura.Repositorio
 
         public async Task<Cidade> ObterCidadePorId(int cidadeId)
         {
-            return await _conexaoContexto.Cidades.FindAsync(cidadeId);
+            return await _conexaoContexto.Cidade.FindAsync(cidadeId);
         }
 
 
@@ -69,7 +69,7 @@ namespace Infraestrutura.Repositorio
 
             if (cidade != null)
             {
-                await _conexaoContexto.Cidades.AddAsync(cidade);
+                await _conexaoContexto.Cidade.AddAsync(cidade);
                 await SalvarDados();
                
                 return cidadeDTO;

@@ -10,7 +10,6 @@ namespace Infraestrutura.Servicos
     {
         private readonly ILogger _logger;
         private readonly ICidadeRepositorio _cidadeRepositorio;
-      
         private readonly ServiceBusClient _serviceBusClient;
         private ServiceBusProcessor _serviceBusProcessor;
         public CidadeQueueConsumer(ICidadeRepositorio cidadeRepositorio, ServiceBusClient serviceBusClient, ILogger<CidadeQueueConsumer> logger)

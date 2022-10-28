@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Infraestrutura.Interface
 {
-    public interface IPrevisaoTempoServiceBusConsumer
+    public interface IPrevisaoClimaServiceBusConsumer
     {
         Task RegisterOnMessageHandlerAndReceiveMessages();
         Task CloseQueueAsync();

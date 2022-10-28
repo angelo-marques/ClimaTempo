@@ -1,34 +1,34 @@
 ﻿using Azure.Messaging.ServiceBus;
-using Dominio.Models;
+using Dominio.DTOs;
 using Infraestrutura.Interface;
 using Microsoft.Extensions.Logging;
 using System.Threading.Tasks;
 
 namespace Infraestrutura.Servicos
 {
-    public class EstadoQueueConsumer : IEstadoServiceBusConsumer
+    public class PrevisaoClimaConsumer : IPrevisaoClimaServiceBusConsumer
     {
         private readonly ILogger _logger;
-        private readonly IEstadoRepositorio _estadoRepositorio;
+        private readonly IPrevisaoClimaRepositorio _previsaoClimaRepositorio;
         private readonly ServiceBusClient _serviceBusClient;
         private ServiceBusProcessor _serviceBusProcessor;
-        public EstadoQueueConsumer(IEstadoRepositorio estadoRepositorio, ServiceBusClient serviceBusClient, ILogger<EstadoQueueConsumer> logger)
+        public PrevisaoClimaConsumer(IPrevisaoClimaRepositorio revisaoClimaRepositorio, ServiceBusClient serviceBusClient, ILogger<CidadeQueueConsumer> logger)
         {
-            _estadoRepositorio = estadoRepositorio;
-            this._serviceBusClient = serviceBusClient;
+            _previsaoClimaRepositorio = revisaoClimaRepositorio;
+            _serviceBusClient = serviceBusClient;
             _logger = logger;
         }
 
         public async Task RegisterOnMessageHandlerAndReceiveMessages()
         {
-            ServiceBusReceiver receiver = _serviceBusClient.CreateReceiver("estado");
+            ServiceBusReceiver receiver = _serviceBusClient.CreateReceiver("previsaoclima");
             var messageHandlerOptions = new ServiceBusProcessorOptions
             {
                 MaxConcurrentCalls = 1,
                 AutoCompleteMessages = false
             };
 
-            _serviceBusProcessor = _serviceBusClient.CreateProcessor("estado", messageHandlerOptions);
+            _serviceBusProcessor = _serviceBusClient.CreateProcessor("previsaoclima", messageHandlerOptions);
             _serviceBusProcessor.ProcessMessageAsync += ProcessMessagesAsync;
             _serviceBusProcessor.ProcessErrorAsync += ProcessErrorAsync;
             await _serviceBusProcessor.StartProcessingAsync().ConfigureAwait(false);
@@ -36,12 +36,13 @@ namespace Infraestrutura.Servicos
 
         private async Task ProcessMessagesAsync(ProcessMessageEventArgs args)
         {
-            Estado estado = args.Message.Body.ToObjectFromJson<Estado>();
+            PrevisaoClimaDTO previsaoClimaDTO = args.Message.Body.ToObjectFromJson<PrevisaoClimaDTO>();
 
-            if (estado != null)
+            if (previsaoClimaDTO != null)
             {
-                await _estadoRepositorio.InsertEstado(estado);
+                await _previsaoClimaRepositorio.InsertPrevisaoClima(previsaoClimaDTO);
             }
+
             await args.CompleteMessageAsync(args.Message).ConfigureAwait(false);
         }
 

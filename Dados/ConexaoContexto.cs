@@ -15,8 +15,8 @@ namespace DadosConexao
             modelBuilder.ApplyConfiguration(new PrevisaoClimaMapeamento());
         }
 
-        public DbSet<Cidade> Cidades { get; set; }
-        public DbSet<Estado> Estados { get; set; }
-        public DbSet<PrevisaoClima> PrevisaoClimas { get; set; }
+        public DbSet<Cidade> Cidade { get; set; }
+        public DbSet<Estado> Estado { get; set; }
+        public DbSet<PrevisaoClima> PrevisaoClima { get; set; }
     }
 }

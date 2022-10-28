@@ -15,15 +15,15 @@ namespace Infraestrutura.Servicos
         private readonly ILogger<WorkerServiceBus> _logger;
         private readonly IEstadoServiceBusConsumer _serviceBusConsumer;
         private readonly ICidadeServiceBusConsumer _cidadeServiceBusConsumer;
-        private readonly IPrevisaoTempoServiceBusConsumer _previsaoTempoServiceBusConsumer;
+        private readonly IPrevisaoClimaServiceBusConsumer _previsaoClimaServiceBusConsumer;
 
 
-        public WorkerServiceBus(IEstadoServiceBusConsumer serviceBusConsumer, ILogger<WorkerServiceBus> logger, ICidadeServiceBusConsumer cidadeServiceBusConsumer, IPrevisaoTempoServiceBusConsumer previsaoTempoServiceBusConsumer)
+        public WorkerServiceBus(IEstadoServiceBusConsumer serviceBusConsumer, ILogger<WorkerServiceBus> logger, ICidadeServiceBusConsumer cidadeServiceBusConsumer, IPrevisaoClimaServiceBusConsumer previsaoTempoServiceBusConsumer)
         {
-            _serviceBusConsumer = serviceBusConsumer;
             _logger = logger;
+            _serviceBusConsumer = serviceBusConsumer;
             _cidadeServiceBusConsumer = cidadeServiceBusConsumer;
-            _previsaoTempoServiceBusConsumer = previsaoTempoServiceBusConsumer;
+            _previsaoClimaServiceBusConsumer = previsaoTempoServiceBusConsumer;
         }
 
         public async Task StartAsync(CancellationToken stoppingToken)
@@ -39,6 +39,7 @@ namespace Infraestrutura.Servicos
             _logger.LogDebug("Stopping the service bus queue consumer and the subscription");
             await _serviceBusConsumer.CloseQueueAsync().ConfigureAwait(false);
             await _cidadeServiceBusConsumer.CloseQueueAsync().ConfigureAwait(false);
+            await _previsaoClimaServiceBusConsumer.CloseQueueAsync().ConfigureAwait(false);
          
         }
 
@@ -54,6 +55,7 @@ namespace Infraestrutura.Servicos
             {
                 await _serviceBusConsumer.DisposeAsync().ConfigureAwait(false);
                 await _cidadeServiceBusConsumer.DisposeAsync().ConfigureAwait(false);
+                await _previsaoClimaServiceBusConsumer.DisposeAsync().ConfigureAwait(false);
             }
         }
     }

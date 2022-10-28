@@ -20,23 +20,23 @@ namespace Infraestrutura.Repositorio
 
         public async Task DeleteEstado(int estadoId)
         {
-            Estado estado = await _conexaoContexto.Estados.FindAsync(estadoId);
-            _conexaoContexto.Estados.Remove(estado);
+            Estado estado = await _conexaoContexto.Estado.FindAsync(estadoId);
+            _conexaoContexto.Estado.Remove(estado);
         }
 
         public List<Estado> GetListaDeEstados()
         {   
-            return _conexaoContexto.Estados.AsNoTracking().ToList();
+            return _conexaoContexto.Estado.AsNoTracking().ToList();
         }
 
         public async Task<Estado> GetEstadoPorId(int estadoId)
         {
-            return await _conexaoContexto.Estados.FindAsync(estadoId);
+            return await _conexaoContexto.Estado.FindAsync(estadoId);
         }
 
         public Estado GetSiglaEstado(string nome)
         {
-            return _conexaoContexto.Estados.Where( x => x.UF.ToUpper().Equals(nome.ToUpper())).FirstOrDefault();
+            return _conexaoContexto.Estado.Where( x => x.UF.ToUpper().Equals(nome.ToUpper())).FirstOrDefault();
         }
 
         public virtual async Task<Estado> InsertEstado(Estado estado)
@@ -45,7 +45,7 @@ namespace Infraestrutura.Repositorio
 
             if (estado != null)
             {
-                var result = await _conexaoContexto.Estados.AddAsync(estado);
+                var result = await _conexaoContexto.Estado.AddAsync(estado);
                 await SalvarDados();
                 return result.Entity;
             }

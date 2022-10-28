@@ -39,7 +39,8 @@ namespace ClimaTempo
             services.AddSingleton<IEstadoRepositorio, EstadoRepositorio>();
 
             services.AddSingleton<ICidadeServiceBusConsumer, CidadeQueueConsumer>();
-            services.AddSingleton<IEstadoServiceBusConsumer, EstadoQueueConsumer>();
+            services.AddSingleton<IEstadoS, EstadoQueueConsumer>();
+            services.AddSingleton<IPrevisaoCliemaServiceBusConsumer, EstadoQueueConsumer>();
 
             services.AddHostedService<WorkerServiceBus>();
 
