@@ -27,7 +27,7 @@ namespace Infraestrutura.Repositorio
             _conexaoContexto.PrevisaoClima.Remove(previsaoClima);
         }
 
-        public List<PrevisaoClima> ObterListaDePrevisoes()
+        public List<PrevisaoClima> ObterListaDePrevisaoClima()
         {
             return _conexaoContexto.PrevisaoClima.Include(c => c.Cidade).ThenInclude(c => c.Estado).AsNoTracking().ToList(); ;
         }
@@ -40,7 +40,7 @@ namespace Infraestrutura.Repositorio
             return retorno;
         }
 
-        public async Task<PrevisaoClima> ObterCidadePorId(int PrevisaoClimaId)
+        public async Task<PrevisaoClima> ObterPrevisaoClimaPorId(int PrevisaoClimaId)
         {
             return await _conexaoContexto.PrevisaoClima.FindAsync(PrevisaoClimaId);
         }

@@ -6,13 +6,13 @@ using System.Threading.Tasks;
 
 namespace Infraestrutura.Servicos
 {
-    public class PrevisaoClimaConsumer : IPrevisaoClimaServiceBusConsumer
+    public class PrevisaoClimaQueueConsumer : IPrevisaoClimaServiceBusConsumer
     {
         private readonly ILogger _logger;
         private readonly IPrevisaoClimaRepositorio _previsaoClimaRepositorio;
         private readonly ServiceBusClient _serviceBusClient;
         private ServiceBusProcessor _serviceBusProcessor;
-        public PrevisaoClimaConsumer(IPrevisaoClimaRepositorio revisaoClimaRepositorio, ServiceBusClient serviceBusClient, ILogger<CidadeQueueConsumer> logger)
+        public PrevisaoClimaQueueConsumer(IPrevisaoClimaRepositorio revisaoClimaRepositorio, ServiceBusClient serviceBusClient, ILogger<CidadeQueueConsumer> logger)
         {
             _previsaoClimaRepositorio = revisaoClimaRepositorio;
             _serviceBusClient = serviceBusClient;
