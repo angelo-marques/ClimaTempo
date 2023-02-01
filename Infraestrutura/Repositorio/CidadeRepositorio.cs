@@ -54,7 +54,7 @@ namespace Infraestrutura.Repositorio
                 return null;
             }
 
-            var estado = _estadoRepositorio.GetSiglaEstado(cidadeDTO.Uf);
+            Estado estado = _estadoRepositorio.GetSiglaEstado(cidadeDTO.Uf);
 
             if (estado == null)
             {

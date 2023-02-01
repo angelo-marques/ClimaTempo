@@ -11,8 +11,15 @@
             UF = uF;
         }
 
-        public int Id { get; set; }
-        public string Nome { get;  set; }
-        public string UF { get; set; }
+        public int Id { get; private set; }
+        public string Nome { get; private set; }
+        public string UF { get; private set; }
+
+        public void AcionarDadosEstado(int id, string nome, string uf)
+        {
+            Id = id;
+            Nome = nome;
+            UF = uf.ToUpper();
+        }
     }
 }

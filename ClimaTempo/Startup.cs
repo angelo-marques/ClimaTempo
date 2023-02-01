@@ -34,7 +34,7 @@ namespace ClimaTempo
             {
                 builder.AddServiceBusClient(Configuration.GetValue<string>("AzureServiceBus"));
             });
-
+            
             services.AddSingleton<ICidadeRepositorio, CidadeRepositorio>();
             services.AddSingleton<IEstadoRepositorio, EstadoRepositorio>();
             services.AddSingleton<IPrevisaoClimaRepositorio, PrevisaoClimaRepositorio>();
@@ -52,7 +52,6 @@ namespace ClimaTempo
             });
         }
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())

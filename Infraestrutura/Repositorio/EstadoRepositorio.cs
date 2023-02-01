@@ -41,7 +41,10 @@ namespace Infraestrutura.Repositorio
 
         public virtual async Task<Estado> InsertEstado(Estado estado)
         {
-            estado.UF = estado.UF.ToUpper();
+            var action = new Estado();
+            action.AcionarDadosEstado(estado.Id, estado.Nome, estado.UF);
+            
+           
 
             if (estado != null)
             {
